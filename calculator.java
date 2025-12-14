@@ -46,20 +46,25 @@ class CalculatorFrame extends JFrame {
 
         ActionListener operationListener = new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                if(start) {
-                    if(operation.equals("-"))
-                        answer.setText("-");
+                if(start && ((JButton) event.getSource()).getText().equals("-")) {
+                    answer.setText("-");
                     start = false;
                 } else {
-                    if(operation.equals("=")) result = Double.parseDouble(answer.getText());
-                    if(operation.equals("+")) result += Double.parseDouble(answer.getText());
-                    if(operation.equals("-")) result -= Double.parseDouble(answer.getText());
-                    if(operation.equals("*")) result *= Double.parseDouble(answer.getText());
-                    if(operation.equals("/")) result /= Double.parseDouble(answer.getText());
+                    if(answer.getText().matches(".*[1-9].*")) {
+                        boolean e = true;
+                        if(operation.equals("=")) {result = Double.parseDouble(answer.getText()); e = false;}
+                        if(operation.equals("+")) result += Double.parseDouble(answer.getText());
+                        if(operation.equals("-")) result -= Double.parseDouble(answer.getText());
+                        if(operation.equals("*")) result *= Double.parseDouble(answer.getText());
+                        if(operation.equals("/")) result /= Double.parseDouble(answer.getText());
 
-                    operation = ((JButton) event.getSource()).getText();
-                    start = true;
-                    answer.setText("" + result);
+                        operation = ((JButton) event.getSource()).getText();
+                        start = true;
+                        if(e)
+                            answer.setText("" + result);
+                        else
+                            answer.setText("");
+                    }
                 }
             }
         };
