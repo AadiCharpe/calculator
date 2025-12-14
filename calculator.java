@@ -55,21 +55,15 @@ class CalculatorFrame extends JFrame {
                     answer.setText("-");
                     start = false;
                 } else {
-                    if(answer.getText().matches(".*[1-9].*")) {
-                        boolean e = true;
-                        if(operation.equals("=")) {result = Double.parseDouble(answer.getText()); e = false;}
-                        if(operation.equals("+")) result += Double.parseDouble(answer.getText());
-                        if(operation.equals("-")) result -= Double.parseDouble(answer.getText());
-                        if(operation.equals("*")) result *= Double.parseDouble(answer.getText());
-                        if(operation.equals("/")) result /= Double.parseDouble(answer.getText());
+                    if(operation.equals("=")) result = Double.parseDouble(answer.getText());
+                    if(operation.equals("+")) result += Double.parseDouble(answer.getText());
+                    if(operation.equals("-")) result -= Double.parseDouble(answer.getText());
+                    if(operation.equals("*")) result *= Double.parseDouble(answer.getText());
+                    if(operation.equals("/")) result /= Double.parseDouble(answer.getText());
 
-                        operation = ((JButton) event.getSource()).getText();
-                        start = true;
-                        if(e)
-                            answer.setText("" + result);
-                        else
-                            answer.setText("");
-                    }
+                    operation = ((JButton) event.getSource()).getText();
+                    start = true;
+                    answer.setText("" + result);
                 }
             }
         };
