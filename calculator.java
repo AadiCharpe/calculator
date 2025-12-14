@@ -18,6 +18,8 @@ public class calculator {
 
 class CalculatorFrame extends JFrame {
     private boolean start;
+    private double result;
+    private String operation;
     public CalculatorFrame() {
         setTitle("Calculator");
         setSize(500, 510);
@@ -28,13 +30,36 @@ class CalculatorFrame extends JFrame {
         add(answer, "North");
 
         start = true;
+        result = 0;
+        operation = "=";
         ActionListener numberListener = new ActionListener() {
             public void actionPerformed(ActionEvent event) {
+                String number = ((JButton) event.getSource()).getText();
                 if(start) {
-                    answer.setText(((JButton) event.getSource()).getText());
+                    answer.setText(number);
                     start = false;
                 } else {
-                    answer.setText(answer.getText() + ((JButton) event.getSource()).getText());
+                    answer.setText(answer.getText() + number);
+                }
+            }
+        };
+
+        ActionListener operationListener = new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if(start) {
+                    if(operation.equals("-"))
+                        answer.setText("-");
+                    start = false;
+                } else {
+                    if(operation.equals("=")) result = Double.parseDouble(answer.getText());
+                    if(operation.equals("+")) result += Double.parseDouble(answer.getText());
+                    if(operation.equals("-")) result -= Double.parseDouble(answer.getText());
+                    if(operation.equals("*")) result *= Double.parseDouble(answer.getText());
+                    if(operation.equals("/")) result /= Double.parseDouble(answer.getText());
+
+                    operation = ((JButton) event.getSource()).getText();
+                    start = true;
+                    answer.setText("" + result);
                 }
             }
         };
@@ -45,22 +70,22 @@ class CalculatorFrame extends JFrame {
         addButton("7", numberListener, panel);
         addButton("8", numberListener, panel);
         addButton("9", numberListener, panel);
-        addButton("+", null, panel);
+        addButton("+", operationListener, panel);
 
         addButton("4", numberListener, panel);
         addButton("5", numberListener, panel);
         addButton("6", numberListener, panel);
-        addButton("-", null, panel);
+        addButton("-", operationListener, panel);
 
         addButton("1", numberListener, panel);
         addButton("2", numberListener, panel);
         addButton("3", numberListener, panel);
-        addButton("*", null, panel);
+        addButton("*", operationListener, panel);
 
         addButton("0", numberListener, panel);
         addButton(".", numberListener, panel);
-        addButton("=", null, panel);
-        addButton("/", null, panel);
+        addButton("=", operationListener, panel);
+        addButton("/", operationListener, panel);
 
         add(panel);
     }
