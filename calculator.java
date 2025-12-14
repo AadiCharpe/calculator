@@ -39,7 +39,12 @@ class CalculatorFrame extends JFrame {
                     answer.setText(number);
                     start = false;
                 } else {
-                    answer.setText(answer.getText() + number);
+                    if(answer.getText().contains(".")) {
+                        if(!number.equals("."))
+                            answer.setText(answer.getText() + number);
+                    } else {
+                        answer.setText(answer.getText() + number);
+                    }
                 }
             }
         };
