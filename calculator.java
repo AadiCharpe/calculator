@@ -63,7 +63,8 @@ class CalculatorFrame extends JFrame {
 
                     operation = ((JButton) event.getSource()).getText();
                     start = true;
-                    answer.setText("" + result);
+                    String value = "" + result;
+                    answer.setText(value.endsWith(".0") ? value.substring(0, value.length() - 2) : value);
                 }
             }
         };
