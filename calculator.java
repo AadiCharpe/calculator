@@ -17,7 +17,7 @@ public class calculator {
 }
 
 class CalculatorFrame extends JFrame {
-    private boolean start;
+    private boolean start, begin;
     private double result;
     private String operation;
     public CalculatorFrame() {
@@ -30,6 +30,7 @@ class CalculatorFrame extends JFrame {
         add(answer, "North");
 
         start = true;
+        begin = true;
         result = 0;
         operation = "=";
         ActionListener numberListener = new ActionListener() {
@@ -38,6 +39,7 @@ class CalculatorFrame extends JFrame {
                 if(start) {
                     answer.setText(number);
                     start = false;
+                    begin = false;
                 } else {
                     if(answer.getText().contains(".")) {
                         if(!number.equals("."))
@@ -51,11 +53,12 @@ class CalculatorFrame extends JFrame {
 
         ActionListener operationListener = new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                if(start && ((JButton) event.getSource()).getText().equals("-")) {
+                if(start && ((JButton) event.getSource()).getText().equals("-") && (!operation.equals("=") || begin)) {
                     answer.setText("-");
                     start = false;
+                    begin = false;
                 } else {
-                    if(!start || operation.equals("=")) {
+                    if((!start || operation.equals("=")) && (!answer.getText().equals("-") && !answer.getText().equals(".") && !answer.getText().equals("-."))) {
                         if(operation.equals("=")) result = Double.parseDouble(answer.getText());
                         if(operation.equals("+")) result += Double.parseDouble(answer.getText());
                         if(operation.equals("-")) result -= Double.parseDouble(answer.getText());
