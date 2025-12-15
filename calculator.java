@@ -55,16 +55,18 @@ class CalculatorFrame extends JFrame {
                     answer.setText("-");
                     start = false;
                 } else {
-                    if(operation.equals("=")) result = Double.parseDouble(answer.getText());
-                    if(operation.equals("+")) result += Double.parseDouble(answer.getText());
-                    if(operation.equals("-")) result -= Double.parseDouble(answer.getText());
-                    if(operation.equals("*")) result *= Double.parseDouble(answer.getText());
-                    if(operation.equals("/")) result /= Double.parseDouble(answer.getText());
+                    if(!start || operation.equals("=")) {
+                        if(operation.equals("=")) result = Double.parseDouble(answer.getText());
+                        if(operation.equals("+")) result += Double.parseDouble(answer.getText());
+                        if(operation.equals("-")) result -= Double.parseDouble(answer.getText());
+                        if(operation.equals("*")) result *= Double.parseDouble(answer.getText());
+                        if(operation.equals("/")) result /= Double.parseDouble(answer.getText());
 
-                    operation = ((JButton) event.getSource()).getText();
-                    start = true;
-                    String value = "" + result;
-                    answer.setText(value.endsWith(".0") ? value.substring(0, value.length() - 2) : value);
+                        operation = ((JButton) event.getSource()).getText();
+                        start = true;
+                        String value = "" + result;
+                        answer.setText(value.endsWith(".0") ? value.substring(0, value.length() - 2) : value);
+                    }
                 }
             }
         };
